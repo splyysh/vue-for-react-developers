@@ -4,9 +4,7 @@
 
 Hi and welcome! This repository contains a chat application created with the Vue 3 Composition API.
 
-[Workshop slides 16.1.2024](./docs/Introduction%20to%20Declarative%20DOM%20Manipulation%202024.pdf)
-
-[Original workshop slides](https://xd.adobe.com/view/4a2bc58a-b5cf-45b3-ab5d-771d7ec9dd83-1f78/)
+[Workshop slides 20.1.2026](./docs/Introduction%20to%20Declarative%20DOM%20Manipulation%202026.pdf)
 
 ## Contents
 
