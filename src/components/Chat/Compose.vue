@@ -2,9 +2,11 @@
 import { ref } from "vue";
 import Input from "../generic/form/Input.vue";
 import Button from "../generic/form/Button.vue";
+import useIcons from "../../compositionFunctions/useIcons";
 
 // Store the text input value
 const text = ref("");
+const icons = useIcons();
 
 /**
  * Handle changes to the text input value
@@ -21,14 +23,26 @@ const emit = defineEmits(["send"]);
  * Sends a text message.
  */
 function send() {
-  emit("send", text.value); // Hint: You can provide more parameters to 'emit'.
+  emit("send", {content: text.value, type: "text"}); // Hint: You can provide more parameters to 'emit'.
   text.value = "";
+}
+
+function sendIcon(icon) {
+  console.log("icon", icon, "received");
+  emit("send", {content: icon, type: "icon"});
 }
 </script>
 
 <template>
   <div class="compose">
     <!-- An emoji selector could go here, for example. The choice is yours! -->
+    <div class="message-row">
+      <Button
+          v-for="icon in Object.keys(icons)"
+          :icon="`${icon}`"
+          @click="sendIcon(icon)"
+        />
+    </div>
 
     <div class="message-row">
       <Input

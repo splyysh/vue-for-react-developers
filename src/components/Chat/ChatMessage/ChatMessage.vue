@@ -3,6 +3,9 @@
 import { inject } from "vue";
 import ChatBubble from "./ChatBubble.vue";
 import Timestamp from "../../Timestamp.vue";
+import useIcons from "../../../compositionFunctions/useIcons";
+
+const icons = useIcons();
 
 const props = defineProps({
   message: {
@@ -28,6 +31,11 @@ const direction = props.message.senderId === userId ? "right" : "left";
     {{ message.content }}
     <Timestamp :date="props.message.timestamp" />
   </ChatBubble>
+  <ChatBubble v-if="props.message.type === 'icon'" :direction="direction">
+    <img :src="icons[props.message.content]" :alt="props.message.content" />
+    <Timestamp :date="props.message.timestamp" />
+  </ChatBubble>
+
 
   <!-- If the message type is not 'text', render something else. Perhaps an emoji?
        Hint: See the README's resources section for a link to Vue's directives
