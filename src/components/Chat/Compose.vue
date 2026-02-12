@@ -12,6 +12,7 @@ const text = ref("");
  */
 const onChange = (newValue) => {
   text.value = newValue;
+  console.log("changed");
 };
 
 // Components emit events. Parent components listen to these events. Just like the DOM!
@@ -21,8 +22,12 @@ const emit = defineEmits(["send"]);
  * Sends a text message.
  */
 function send() {
+  console.log("send pressed");
   // Hint: Call 'emit' with the correct arguments.
   //       Finally, clear the text input.
+  emit("send", text.value);
+  text.value = '';
+
 }
 </script>
 
@@ -32,10 +37,10 @@ function send() {
       <!-- Hint: See if you could send the message by pressing the enter key in the text field.
                  https://vuejs.org/guide/essentials/event-handling.html#key-modifiers
       -->
-      <Input :value="text" placeholder="Type a message" @change="onChange" />
+      <Input :value="text" placeholder="Type a message" @change="onChange" @keyup.enter="send"/>
 
       <!-- Hint: Call the 'send()' function when the button emits a 'click' event. -->
-      <Button icon="send" />
+      <Button icon="send" @click="send" />
     </div>
   </div>
 </template>

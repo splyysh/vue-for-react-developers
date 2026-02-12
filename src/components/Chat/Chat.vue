@@ -14,11 +14,19 @@ const USER_ID = 1111;
 const messages = ref(existingMessages);
 
 // Use a behavior that automatically scrolls the message list to the bottom whenever its content changes.
-const messageListElement = ref(null); // Create a ref that we attach to a DOM element. Similar to useRef.
+const messageListElement = ref(messages.value[-1]); // Create a ref that we attach to a DOM element. Similar to useRef.
 useAutoScrollToBottom(messageListElement); // Using a "hook".
 
 // Provide the active user's id to all components in this tree. Similar to providing a React Context.
 provide("userId", USER_ID);
+function addMessage(message) {
+  messages.value = [...messages.value, {
+    content: message,
+    type: "text",
+    senderId: USER_ID,
+    timestamp: new Date(Date.now()),
+  }];
+}
 </script>
 
 <template>
@@ -38,7 +46,7 @@ provide("userId", USER_ID);
 
            Tip:  In your function, you can replace 'messages.value' directly ie. 'messages.value = [...messages.value, newMessage]'
       -->           
-      <Compose />
+      <Compose @send="(msg) => addMessage(msg)"/>
     </div>
   </CenterOnPage>
 </template>
